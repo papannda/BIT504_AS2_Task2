@@ -14,7 +14,7 @@ public class Board {
 	/** Constructor to create the game board */
 	public Board() {
 		 
-		 cells=new Cell [GameMain.ROWS][GameMain.COLS];
+	cells=new Cell [GameMain.ROWS][GameMain.COLS];
 	 //TODO: initialise the cells array using ROWS and COLS constants 
 
 		
