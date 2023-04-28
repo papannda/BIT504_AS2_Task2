@@ -72,8 +72,7 @@ public class GameMain extends JPanel implements MouseListener{
 				JFrame frame = new JFrame(TITLE);
 				
 				//TODO: create the new GameMain panel and add it to the frame
-				GameMain GamePanel=new GameMain();		
-				frame.add(GamePanel);
+				frame.setContentPane(new GameMain());
 				
 				//TODO: set the default close operation of the frame to exit_on_close
 		            
@@ -85,12 +84,14 @@ public class GameMain extends JPanel implements MouseListener{
 		 });
 	}
 	/** Custom painting codes on this JPanel */
+	@Override
 	public void paintComponent(Graphics g) {
 		//fill background and set colour to white
 		super.paintComponent(g);
 		setBackground(Color.WHITE);
 		//ask the game board to paint itself
 		board.paint(g);
+		
 		
 		//set status bar message
 		if (currentState == GameState.Playing) {          
@@ -149,7 +150,7 @@ public class GameMain extends JPanel implements MouseListener{
 			} else 
 				if (board.isDraw ()) {
 					
-				// TODO: set the currentstate to the draw gamestate
+				// TODO: set the CurrentState to the draw GameState
 					currentState = GameState.Draw;
 			}
 			//otherwise no change to current state of playing
@@ -175,7 +176,7 @@ public class GameMain extends JPanel implements MouseListener{
 				// update currentState                  
 				updateGame(currentPlayer, rowSelected, colSelected); 
 				// Switch player
-				
+				  
 				if (currentPlayer == Player.Cross) {
 					currentPlayer =  Player.Nought;
 				}
@@ -189,7 +190,7 @@ public class GameMain extends JPanel implements MouseListener{
 		}   
 		
 		//TODO: redraw the graphics on the UI          
-           repaint();
+		repaint();
 	}
 	
 	@Override

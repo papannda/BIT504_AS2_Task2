@@ -1,7 +1,9 @@
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class Board {
+
+
+public class Board  {
 	// grid line width
 	public static final int GRID_WIDTH = 8;
 	// grid line half width
@@ -13,7 +15,7 @@ public class Board {
 	/** Constructor to create the game board */
 	public Board() {
 		
-	 //TODO: initialise the cells array using ROWS and COLS constants 
+	 //TODO: initialize the cells array using ROWS and COLS constants 
 		cells=new Cell [GameMain.ROWS][GameMain.COLS];
 		
 		for (int row = 0; row < GameMain.ROWS; ++row) {
