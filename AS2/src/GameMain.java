@@ -57,33 +57,22 @@ public class GameMain extends JPanel implements MouseListener{
 		
 		
 		// TODO: Create a new instance of the game "Board"class. HINT check the variables above for the correct name
-         board=new Board();
+		board=new Board();
 		
-         
 		//TODO: call the method to initialise the game board
-        
-        initGame();
-        
+		initGame();
+		
 	}
 	
 	public static void main(String[] args) {
-		
-		
 		    // Run GUI code in Event Dispatch thread for thread safety.
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 	         public void run() {
-	        	
-				
 				//create a main window to contain the panel
 				JFrame frame = new JFrame(TITLE);
 				
 				//TODO: create the new GameMain panel and add it to the frame
-				JPanel J=new JPanel();	
-				
-				
-				frame.add(new GameMain());
-				// new GameMain here is constructor.
-				
+				frame.setContentPane(new GameMain());
 				
 				//TODO: set the default close operation of the frame to exit_on_close
 		            
@@ -91,18 +80,18 @@ public class GameMain extends JPanel implements MouseListener{
 				frame.pack();             
 				frame.setLocationRelativeTo(null);
 				frame.setVisible(true);
-				
 	         }
 		 });
 	}
 	/** Custom painting codes on this JPanel */
-	
+	@Override
 	public void paintComponent(Graphics g) {
 		//fill background and set colour to white
 		super.paintComponent(g);
 		setBackground(Color.WHITE);
 		//ask the game board to paint itself
 		board.paint(g);
+		
 		
 		//set status bar message
 		if (currentState == GameState.Playing) {          
@@ -156,12 +145,12 @@ public class GameMain extends JPanel implements MouseListener{
 			if(board.hasWon(thePlayer, row, col)) {
 				
 				// TODO: check which player has won and update the currentstate to the appropriate gamestate for the winner
-               
+				currentState= (thePlayer==Player.Cross) ? GameState.Cross_won : GameState.Nought_won;
 				
 			} else 
 				if (board.isDraw ()) {
 					
-				// TODO: set the currentstate to the draw gamestate
+				// TODO: set the CurrentState to the draw GameState
 					currentState = GameState.Draw;
 			}
 			//otherwise no change to current state of playing
@@ -172,15 +161,14 @@ public class GameMain extends JPanel implements MouseListener{
 		/** Event handler for the mouse click on the JPanel. If selected cell is valid and Empty then current player is added to cell content.
 		 *  UpdateGame is called which will call the methods to check for winner or Draw. if none then GameState remains playing.
 		 *  If win or Draw then call is made to method that resets the game board.  Finally a call is made to refresh the canvas so that new symbol appears*/
-			
+		@Override
 	public void mouseClicked(MouseEvent e) {  
 	    // get the coordinates of where the click event happened            
 		int mouseX = e.getX();             
 		int mouseY = e.getY();             
 		// Get the row and column clicked             
 		int rowSelected = mouseY / CELL_SIZE;             
-		int colSelected = mouseX / CELL_SIZE;  
-		
+		int colSelected = mouseX / CELL_SIZE;               			
 		if (currentState == GameState.Playing) {                
 			if (rowSelected >= 0 && rowSelected < ROWS && colSelected >= 0 && colSelected < COLS && board.cells[rowSelected][colSelected].content == Player.Empty) {
 				// move  
@@ -188,6 +176,7 @@ public class GameMain extends JPanel implements MouseListener{
 				// update currentState                  
 				updateGame(currentPlayer, rowSelected, colSelected); 
 				// Switch player
+				  
 				if (currentPlayer == Player.Cross) {
 					currentPlayer =  Player.Nought;
 				}
@@ -197,12 +186,11 @@ public class GameMain extends JPanel implements MouseListener{
 			}             
 		} else {        
 			// game over and restart              
-			initGame();       
+			initGame();            
 		}   
 		
-		//TODO: redraw the graphics on the UI     
-		   
-           repaint();
+		//TODO: redraw the graphics on the UI          
+		repaint();
 	}
 	
 	@Override
@@ -225,5 +213,5 @@ public class GameMain extends JPanel implements MouseListener{
 		// Auto-generated, event not used
 		
 	}
-	
+
 }
